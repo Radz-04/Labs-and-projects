@@ -4,9 +4,9 @@
 
 * **Goal:** Deploy a centralized Syslog server to collect, aggregate, and manage log data from all network devices.
 * **Infrastructure Setup:**
-  1) **Hypervisor:** Oracle VM VirtualBox
-  2) **Operating Systems:** 3 Virtual Machines (Ubuntu / Debian)
-  3) **Network Mode:** Bridged Adapter (enabling direct communication between nodes and the local gateway)
+  * **Hypervisor:** Oracle VM VirtualBox
+  * **Operating Systems:** 3 Virtual Machines (Ubuntu / Debian)
+  * **Network Mode:** Bridged Adapter (enabling direct communication between nodes and the local gateway)
 
 ![Screenshot 1](Immagini/Immagine1.png)
 
