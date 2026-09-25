@@ -1,55 +1,50 @@
-# IMPLEMENTAZIONE DI UN SYSLOG SERVER
-## OBIETTIVI DEL PROGETTO
+# Centralized Syslog Server Implementation
 
-• Obiettivo:sviluppare un Syslog Server per raccogliere tutti i log dei dispositivi di rete
+## Project Objectives
 
-• Infrastruttura:
+* **Goal:** Deploy a centralized Syslog server to collect, aggregate, and manage log data from all network devices.
+* **Infrastructure Setup:**
+  1. **Hypervisor:** Oracle VM VirtualBox
+  2. **Operating Systems:** 3 Virtual Machines (Ubuntu / Debian)
+  3. **Network Mode:** Bridged Adapter (enabling direct communication between nodes and the local gateway)
 
-1.Hypervisor: VirtualBox.
+![Screenshot 1](Immagini/Immagine1.png)
 
-2.Sistemi Operativi: 3 Macchine Virtuali (Ubuntu / Debian).
+---
 
-3.Configurazione di Rete: Modalità Bridge (per farle comunicare tra loro e con il router)
+## Why Centralize Logs?
 
+* **Faster Troubleshooting:** Eliminates the need to log into individual endpoints to diagnose issues. All system events and error logs are consolidated into a single location.
+* **Enhanced Security & Data Integrity:** If a host is compromised or encounters a system crash, local log files may be tampered with or lost. Transmitting logs in real time ensures an immutable off-site backup.
+* **Full Infrastructure Visibility:** Delivers a comprehensive, real-time overview of overall network activity and health.
 
+---
 
-![Schermata 1](Immagini/Immagine1.png)
+## Server Configuration
 
+1. **System Update:** Run `sudo apt update && sudo apt upgrade` to ensure all packages are up to date.
+2. **IP Verification:** Identify the active network interface and IP address using `ip a`.
+3. **Enable Transport Protocols:** Uncomment the UDP reception directives in `/etc/rsyslog.conf` to enable the port 514 listener module. In addition to UDP, TCP support was enabled to accommodate devices requiring connection-oriented, guaranteed delivery.
+4. **Restart Service:** Run `sudo systemctl restart rsyslog` to apply the changes.
 
+![Screenshot 2](Immagini/Immagine2.png)
 
-# PERCHÉ CENTRALIZZARE I LOG?
+---
 
-• Risoluzione dei Problemi (Troubleshooting) più veloce: Non serve accedere singolarmente a ogni client per capire cosa si è rotto. Tutti gli eventi e gli errori si leggono da un unico punto.
+## Client Configuration
 
-• Maggiore Sicurezza e Integrità dei Dati: Se un client viene attaccato o subisce un guasto , i log locali potrebbero essere cancellati o inaccessibili.
-Inviandoli in tempo reale al Syslog Server, si avrà sempre una copia salva.
+1. **Configure Forwarding:** Open `/etc/rsyslog.conf` on client machines and append `*.* @192.168.1.43` to route all generated logs over UDP to the central server.
+2. **Restart Service:** Execute `sudo systemctl restart rsyslog` to apply the configuration and initiate log transmission.
 
-• Visione Globale dell'Infrastruttura: Permette di monitorare tutta la rete simultaneamente
+![Screenshot 3](Immagini/Immagine3.png)
 
-# CONFIGURAZIONE DEL SERVER
+---
 
-1. Aggiornamento: Esecuzione di **sudo apt update && sudo apt upgrade** per aggionare i pacchetti.
-  
-3. Verifica IP: Identificazione dell'indirizzo di rete tramite il comando **ip a**.
-4. Abilitazione Protocolli: Rimozione del commento (#) nel file **/etc/rsyslog.conf** per attivare i moduli di ricezione UDPsulla porta 514. Oltre al protocollo UDP (porta 514), ho scelto di abilitare anche il protocollo TCP per garantire il supporto a dispositivi che richiedono la consegna garantita dei log.
-5. Riavvio Servizio: Esecuzione di **sudo systemctl restart rsyslog** per rendere attive le modifiche.
+## Testing & Verification
 
-![Schermata 2](Immagini/Immagine2.png)
+1. **Live Server Monitoring:** Run `sudo tail -f /var/log/syslog` on the central server to monitor incoming event logs in real time.
+2. **Generate Test Entry:** Execute `logger "CIAO"` on a client machine to trigger a test log submission.
 
-
-# CONFIGURAZIONE DEI CLIENT
-
-1. Configurazione Inoltro: Apertura del file **/etc/rsyslog.conf** e inserimento della riga **\*.\* @192.168.1.43** per l'invio in UDP.
-2. Riavvio Servizio: Esecuzione di sudo systemctl
-restart rsyslog per rendere attive le modifiche e avviare
-la trasmissione.
-
-![Schermata 3](Immagini/Immagine3.png)
-
-
-# TEST
-
-1. Monitoraggio Server: Esecuzione di **sudo tail -f /var/log/syslog** per osservare l'arrivo dei dati intempo reale.
-2. Generazione Log di Test: Esecuzione delcomando **logger "CIAO"** sul Client per forzarel'invio di un log
+![Screenshot 4](Immagini/Immagine4.png)
 
 ![Schermata 4](Immagini/Immagine4.png)
