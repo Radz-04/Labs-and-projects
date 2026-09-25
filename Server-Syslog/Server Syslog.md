@@ -6,7 +6,7 @@
 * **Infrastructure Setup:**
   * **Hypervisor:** Oracle VM VirtualBox
   * **Operating Systems:** 3 Virtual Machines (Ubuntu / Debian)
-  * **Network Mode:** Bridged Adapter (enabling direct communication between nodes and the local gateway)
+  * **Network Mode:** Bridged Adapter (enabling direct communication between the VMs and the local router)
 
 ![Screenshot 1](Immagini/Immagine1.png)
 
