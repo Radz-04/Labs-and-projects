@@ -1,2 +1,2 @@
 # Labs-and-project
-A place where I document my network labs and projects
+A place for my cybersecurity and networking labs
