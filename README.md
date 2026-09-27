@@ -1,6 +1,6 @@
 # Labs and Projects
 
-Cbersecurity and networking labs.
+Cybersecurity and networking labs.
 
 ## Index
 
