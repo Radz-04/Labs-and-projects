@@ -1,2 +1,7 @@
-# Labs-and-project
-A place for my cybersecurity and networking labs and projects
+# Labs and Projects
+
+Cbersecurity and networking labs.
+
+## Index
+
+- **[Server-Syslog](./Server-Syslog)** – Linux log server using `rsyslog` (VirtualBox).
